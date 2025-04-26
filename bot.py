@@ -58,11 +58,11 @@ def rodar_bot():
             options.add_argument('--headless')
             options.add_argument('--no-sandbox')
             options.add_argument('--disable-dev-shm-usage')
-            options.binary_location = "/usr/bin/google-chrome"  # local do Chrome no Railway
+            options.binary_location = "/usr/bin/chromium" # local do Chrome no Railway
 
             driver = uc.Chrome(
                 options=options,
-                browser_executable_path="/usr/bin/google-chrome"
+                browser_executable_path="/usr/bin/chromium"
             )
 
             driver.get("https://dashboard.fotop.com/login")
