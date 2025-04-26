@@ -56,12 +56,16 @@ def rodar_bot():
             log(f"Tentando login para {usuario_data['usuario']}...")
 
             options = uc.ChromeOptions()
-            options.binary_location = "/usr/bin/google-chrome"  # <<< Esse é o caminho padrão no Railway
-            options.add_argument('--headless')
-            options.add_argument('--no-sandbox')
-            options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        options.binary_location = "/usr/bin/google-chrome"  # local padrão do Chrome no Railway
 
-            driver = uc.Chrome(options=options)
+        driver = uc.Chrome(
+            options=options,
+            browser_executable_path="/usr/bin/google-chrome"
+        )
+
 
             driver.get("https://dashboard.fotop.com/login")
 
