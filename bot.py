@@ -4,7 +4,6 @@ import yagmail
 import schedule
 import os
 from datetime import datetime
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 import undetected_chromedriver as uc
 
@@ -22,7 +21,7 @@ CAMINHO_LOG = "logs"
 if not os.path.exists(CAMINHO_LOG):
     os.makedirs(CAMINHO_LOG)
 
-# Função para logar
+# Função para logar as mensagens
 def log(mensagem):
     now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     with open(os.path.join(CAMINHO_LOG, "log.txt"), "a", encoding="utf-8") as f:
@@ -56,26 +55,23 @@ def rodar_bot():
             log(f"Tentando login para {usuario_data['usuario']}...")
 
             options = uc.ChromeOptions()
-        options.add_argument('--headless')
-        options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
-        options.binary_location = "/usr/bin/google-chrome"  # local padrão do Chrome no Railway
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+            options.binary_location = "/usr/bin/google-chrome"  # local do Chrome no Railway
 
-        driver = uc.Chrome(
-            options=options,
-            browser_executable_path="/usr/bin/google-chrome"
-        )
-
+            driver = uc.Chrome(
+                options=options,
+                browser_executable_path="/usr/bin/google-chrome"
+            )
 
             driver.get("https://dashboard.fotop.com/login")
-
             time.sleep(2)
 
             # Login
             driver.find_element(By.NAME, "email").send_keys(usuario_data["usuario"])
             driver.find_element(By.NAME, "password").send_keys(usuario_data["senha"])
             driver.find_element(By.TAG_NAME, "form").submit()
-
             time.sleep(4)
 
             # Vai para a página de eventos
@@ -89,7 +85,7 @@ def rodar_bot():
                     driver.get(evento_url)
                     time.sleep(2)
 
-                    # Inscrever-se no evento (AJUSTADO para PARTICIPAR)
+                    # Inscrever-se no evento (botão "Participar")
                     botao_participar = driver.find_element(By.XPATH, "//button[contains(text(), 'Participar')]")
                     botao_participar.click()
                     time.sleep(2)
