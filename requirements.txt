@@ -2,3 +2,4 @@ selenium
 undetected-chromedriver
 yagmail
 schedule
+setuptools
